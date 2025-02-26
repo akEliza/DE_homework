@@ -22,6 +22,8 @@ select
     -- timestamps
     cast(lpep_pickup_datetime as timestamp) as pickup_datetime,
     cast(lpep_dropoff_datetime as timestamp) as dropoff_datetime,
+    -- cast(TIMESTAMP_MICROS(CAST(lpep_pickup_datetime / 1000 AS INT64)) as timestamp) as pickup_datetime,
+    -- cast(TIMESTAMP_MICROS(CAST(lpep_dropoff_datetime / 1000 AS INT64)) as timestamp) as dropoff_datetime,
     
     -- trip info
     store_and_fwd_flag,
@@ -45,7 +47,7 @@ where rn = 1
 
 
 -- dbt build --select <model_name> --vars '{'is_test_run': 'false'}'
-{% if var('is_test_run', default=true) %}
+{% if var('is_test_run', default=false) %}
 
   limit 100
 

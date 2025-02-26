@@ -1,6 +1,10 @@
 version: 2
 
 models:
+  - name: dim_fhv_trips
+    description: >
+      compeleting q7 for week4
+      
   - name: dim_zones
     description: >
       List of unique zones idefied by locationid. 

@@ -2,12 +2,13 @@ version: 2
 
 sources:
   - name: staging
-    database: "{{ env_var('DBT_DATABASE', 'taxi-rides-ny-339813-412521') }}"
+    database: "{{ env_var('DBT_DATABASE', 'dbt-learn-452007') }}"
     schema: "{{ env_var('DBT_SCHEMA', 'trips_data_all') }}"
       # loaded_at_field: record_loaded_at
     tables:
       - name: green_tripdata
       - name: yellow_tripdata
+      - name: fhv_tripdata
          # freshness:
            # error_after: {count: 6, period: hour}
 
@@ -194,3 +195,21 @@ models:
             description: Total amount of all tolls paid in trip.
           - name: Total_amount 
             description: The total amount charged to passengers. Does not include cash tips.
+    
+    - name: stg_fhv_tripdata
+      description: "Staging model for FHV trip data in 2019, filtering out null dispatching_base_num"
+      columns:
+          - name: dispatching_base_num
+            description: "Base number associated with the dispatching company"
+          - name: pickup_datetime
+            description: "Timestamp of when the trip started"
+          - name: dropOff_datetime
+            description: "Timestamp of when the trip ended"
+          - name: PUlocationID
+            description: "Pickup location ID"
+          - name: DOlocationID
+            description: "Dropoff location ID"
+          - name: SR_Flag
+            description: "Service Request flag"
+          - name: Affiliated_base_number
+            description: "Affiliated base number for the trip"
